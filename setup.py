@@ -1,5 +1,6 @@
 import subprocess
 import pkg_resources
+import sys
 from setuptools import setup
 
 def install(package):
