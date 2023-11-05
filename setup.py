@@ -1,3 +1,17 @@
+import subprocess
+import pkg_resources
+from setuptools import setup
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+required_packages = ["requests"]
+installed_packages = [pkg.key for pkg in pkg_resources.working_set]
+missing_packages = [pkg for pkg in required_packages if pkg not in installed_packages]
+
+for pkg in missing_packages:
+    install(pkg)
+
 import requests
 from setuptools import setup
 import os
